@@ -20,6 +20,7 @@ pipeline {
         CENTRAL_REPOT = "vpro-maven-central"
         NEXUS_CREDENTIAL_ID = "nexuslogin"
         SONARSERVER = 'sonarserver'
+        SONARSCANNER = 'sonarscanner'
     }
 	
     stages{
