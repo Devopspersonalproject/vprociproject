@@ -31,39 +31,33 @@ pipeline {
             post {
                 success {
                     echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    archiveArtifacts artifacts: '**/*.war'
                 }
             }
-        }
+    }
 
 	stage('UNIT TEST'){
             steps {
-                sh 'mvn test'
+                sh 'mvn  -s settings.xml test'
             }
-        }
+    }
 
-	stage('INTEGRATION TEST'){
+    stage ('CODE ANALYSIS WITH CHECKSTYLE'){
             steps {
-                sh 'mvn verify -DskipUnitTests'
-            }
-        }
-		
-        stage ('CODE ANALYSIS WITH CHECKSTYLE'){
-            steps {
-                sh 'mvn checkstyle:checkstyle'
+                sh 'mvn  -s settings.xml checkstyle:checkstyle'
             }
             post {
                 success {
                     echo 'Generated Analysis Result'
                 }
             }
-        }
+    }
 
         stage('CODE ANALYSIS with SONARQUBE') {
           
 		  environment {
              scannerHome = tool 'sonarscanner4'
-          }
+            }
 
           steps {
             withSonarQubeEnv('sonar-pro') {
