@@ -1,26 +1,24 @@
 pipeline {
     
 	agent any
-	
 	tools {
         maven "MAVEN3"
         jdk "OracleJDK8"
     }
 
     environment {
-        SNAP_REPO = "vprofile-snapshot"
-        NEXUS_USER = "admin"
-        NEXUS_PASS = "Bodymender04@"
-        NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUSPORT = "8081"
-        NEXUS_URL = "172.31.26.24"
-        NEXUS_REPOSITORY = "vprofile-release"
-	    NEXUS_REPOGRP_ID    = "vprofile-maven-group"
-        CENTRAL_REPOT = "vpro-maven-central"
-        NEXUS_CREDENTIAL_ID = "nexuslogin"
+        SNAP_REPO = 'vprofile-snapshot'
+		NEXUS_USER = 'admin'
+		NEXUS_PASS = 'Bodymender04@'
+		RELEASE_REPO = 'vprofile-release'
+		CENTRAL_REPO = 'vpro-maven-central'
+		NEXUSIP = '172.31.26.24'
+		NEXUSPORT = '8081'
+		NEXUS_GRP_REPO = 'vpro-maven-group'
+        NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
+        
     }
 	
     stages{
@@ -74,9 +72,13 @@ pipeline {
               }
                
             }
-
-            timeout(time: 10, unit: 'MINUTES') {
-               waitForQualityGate abortPipeline: true
+             stage("Quality Gate") {
+                steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+            
             }
           }
         }
