@@ -24,27 +24,27 @@ pipeline {
 	
     stages{
         
-        stage('BUILD'){
+        stage('Build'){
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn -s settings.xml -DskipTests install'
             }
             post {
                 success {
-                    echo 'Now Archiving...'
+                    echo 'Now Archiving.'
                     archiveArtifacts artifacts: '**/*.war'
                 }
             }
     }
 
-	stage('UNIT TEST'){
+	stage('Test'){
             steps {
-                sh 'mvn  -s settings.xml test'
+                sh 'mvn -s settings.xml test'
             }
     }
 
-    stage ('CODE ANALYSIS WITH CHECKSTYLE'){
+    stage ('checkstyle Analysis'){
             steps {
-                sh 'mvn  -s settings.xml checkstyle:checkstyle'
+                sh 'mvn -s settings.xml checkstyle:checkstyle'
             }
             post {
                 success {
@@ -57,7 +57,7 @@ pipeline {
           
 		  environment {
              scannerHome = tool 'sonarscanner4'
-            }
+          }
 
           steps {
             withSonarQubeEnv('sonar-pro') {
