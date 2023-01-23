@@ -19,9 +19,7 @@ pipeline {
         NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-        
-    
-  
+
     }
 	
     stages {
@@ -69,7 +67,6 @@ pipeline {
                 }
             }
 
-
         }
 
         stage("Quality Gate") {
@@ -79,8 +76,7 @@ pipeline {
                     // true = set pipeline to UNSTABLE, false = don't
                     waitForQualityGate abortPipeline: true
 
-                }
-                
+                } 
             }
         }
         stage("UploadArtifact") {
@@ -99,13 +95,15 @@ pipeline {
                      file: 'target/vprofile-v2.war',
                      type: 'war']
                   ]
+                )
             }
         }
-
-
     }
-
 }
+
+       
+
+
 
 
     
