@@ -11,13 +11,12 @@ pipeline {
         SNAP_REPO = "vprofile-snapshot"
         NEXUS_USER = "admin"
         NEXUS_PASS = "Bodymender04@"
+        RELEASE_REPO = "vprofile-release"
+        CENTRAL_REPO = "vpro-maven-central"
         NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
         NEXUSPORT = "8081"
         NEXUS_URL = "172.31.26.24"
-        NEXUS_REPOSITORY = "vprofile-release"
 	    NEXUS_REPOGRP_ID    = "vprofile-maven-group"
-        CENTRAL_REPOT = "vpro-maven-central"
         NEXUS_CREDENTIAL_ID = "nexuslogin"
         
     
