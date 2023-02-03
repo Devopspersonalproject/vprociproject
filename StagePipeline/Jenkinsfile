@@ -109,7 +109,7 @@ pipeline {
             }
         }
     }
-        stage('Upload Aoo Image'){
+        stage('Upload APP Image'){
             steps{
                 script{
                     docker.withRegistry = docker.build( vprofileRegistry, registryCredential) {
